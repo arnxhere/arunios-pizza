@@ -1,0 +1,17 @@
+{
+  "name": "arunios-pizza",
+  "version": "1.0.0",
+  "description": "Arunios Pizza — Up-to-Down Cinematic Scroll Animation & Full E-Commerce Storefront",
+  "scripts": {
+    "start": "python server.py 3000"
+  },
+  "keywords": [
+    "pizza",
+    "scroll-animation",
+    "canvas",
+    "cinematic",
+    "ecommerce"
+  ],
+  "author": "Arun Gupta",
+  "license": "MIT"
+}

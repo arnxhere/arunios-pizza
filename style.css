@@ -1,0 +1,261 @@
+/* ========================================================
+   CINEMATIC SCROLL ANIMATION & PAGE STYLES
+   ======================================================== */
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 75px;
+  }
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #fef8f4;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(169, 26, 0, 0.35);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(169, 26, 0, 0.7);
+}
+
+/* ==================== PRELOADER OVERLAY ==================== */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #1c1510 0%, #080605 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.loader-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-box {
+  width: 90%;
+  max-width: 380px;
+  background: rgba(18, 14, 12, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 18px;
+  padding: 32px 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.1);
+  text-align: center;
+}
+
+.loader-spinner {
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 16px auto;
+  border: 3px solid rgba(245, 158, 11, 0.18);
+  border-top-color: #f59e0b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loader-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(180deg, #ffffff 40%, #fed7aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #f59e0b, #ea580c);
+  border-radius: 999px;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+}
+
+.loader-counter {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.78rem;
+  color: #a8a29e;
+}
+
+/* ==================== SCROLL ANIMATION SECTION ==================== */
+/* 350vh height ensures a smooth, cinematic up-to-down scroll scrub */
+.animation-section {
+  position: relative;
+  width: 100%;
+  height: 350vh;
+  background-color: #080706;
+}
+
+.sticky-viewport {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #080706;
+  z-index: 20;
+}
+
+#animation-canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  pointer-events: none;
+}
+
+/* Floating Frame Pill */
+.hud-floating-pill {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(18, 14, 12, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.78rem;
+  color: #f5f5f4;
+  z-index: 30;
+  user-select: none;
+}
+
+.hud-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+/* ==================== HERO BANNER OVERLAY ==================== */
+.hero-banner {
+  position: absolute;
+  top: clamp(82px, 13vh, 128px);
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 25;
+  width: 92%;
+  max-width: 900px;
+  padding: 14px 24px;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 80%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.5rem, 6.5vw, 5.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #111111;
+  line-height: 1.05;
+  margin: 0;
+  padding: 0;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.95), 0 2px 10px rgba(255, 255, 255, 0.85);
+}
+
+.hero-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #1d1b19;
+  margin-top: 10px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.95), 0 2px 8px rgba(255, 255, 255, 0.85);
+  opacity: 0.98;
+}
+
+/* Scroll Down Guidance Prompt */
+.scroll-prompt {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 30;
+  color: #d6d3d1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.scroll-prompt.fade {
+  opacity: 0;
+}
+
+.scroll-mouse {
+  width: 20px;
+  height: 32px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.scroll-wheel {
+  width: 3px;
+  height: 7px;
+  background: #f59e0b;
+  border-radius: 999px;
+  animation: mouseWheel 1.6s infinite cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes mouseWheel {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(11px); opacity: 0; }
+}
