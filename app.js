@@ -39,12 +39,12 @@
   // Initialize
   async function init() {
     try {
-      const res = await fetch('/api/frames');
+      const res = await fetch('/frames.json');
       if (res.ok) {
         frameFiles = await res.json();
       }
     } catch (e) {
-      console.warn('API error, using default names', e);
+      console.warn('Could not load frames.json, using fallback names', e);
     }
 
     if (!frameFiles || frameFiles.length === 0) {
