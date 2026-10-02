@@ -169,7 +169,7 @@
             <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
             <span id="hud-frame-label" class="font-mono text-xs text-on-surface font-bold tracking-tight">FRAME 001 / 210</span>
           </div>
-          <a class="inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(214,35,0,0.3)] transition-all transform active:scale-95" href="#menu">
+          <a id="orderBtn" class="inline-flex items-center justify-center bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(214,35,0,0.3)] transition-all transform active:scale-95" href="#menu">
             Order Online
           </a>
           <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors" aria-label="Toggle navigation menu">
@@ -889,5 +889,17 @@
   </div>
 
   <script src="app.js"></script>
-</body>
+ <!-- Payment Modal Box -->
+<div id="paymentModal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <h2>Choose Payment Method</h2>
+    <p>How would you like to pay for your Arunios Pizza?</p>
+    
+    <div class="payment-options">
+      <button class="pay-btn cod-btn" onclick="handleCOD()">🛵 Cash on Delivery (COD)</button>
+      <button class="pay-btn prepaid-btn" onclick="handlePrepaid()">💳 Pay Online (Prepaid)</button>
+    </div>
+  </div>
+</div></body>
 </html>
