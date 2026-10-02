@@ -281,3 +281,44 @@
   requestAnimationFrame(loop);
 
 })();
+
+// --- Payment Modal Logic ---
+
+const paymentModal = document.getElementById("paymentModal");
+const closeModal = document.getElementById("closeModal");
+const orderBtn = document.getElementById("orderBtn");
+
+// Popup kholne ke liye
+if (orderBtn) {
+    orderBtn.addEventListener("click", function(e) {
+        e.preventDefault(); // Agar link hai toh page reload hone se rokega
+        paymentModal.style.display = "flex";
+    });
+}
+
+// 'X' button se popup band karne ke liye
+if (closeModal) {
+    closeModal.addEventListener("click", function() {
+        paymentModal.style.display = "none";
+    });
+}
+
+// Box ke bahar click karne par popup band karne ke liye
+window.addEventListener("click", function(event) {
+    if (event.target === paymentModal) {
+        paymentModal.style.display = "none";
+    }
+});
+
+// COD Button ka function
+function handleCOD() {
+    alert("Your order is placed! Please keep cash ready on delivery.");
+    paymentModal.style.display = "none";
+    // Yahan WhatsApp redirect ka link lagaya ja sakta hai
+}
+
+// Prepaid Button ka function
+function handlePrepaid() {
+    alert("Redirecting to Payment Gateway (UPI/Card)...");
+    // Yahan Razorpay ya kisi aur payment gateway ka link aayega
+}
