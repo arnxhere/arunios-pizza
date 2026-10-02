@@ -322,3 +322,82 @@ function handlePrepaid() {
     alert("Redirecting to Payment Gateway (UPI/Card)...");
     // Yahan Razorpay ya kisi aur payment gateway ka link aayega
 }
+
+// --- Cart & Checkout Logic ---
+let cartItems = []; 
+const cartSidebar = document.getElementById('cartSidebar');
+const cartOverlay = document.getElementById('cartOverlay');
+const cartItemsContainer = document.getElementById('cartItems');
+const cartTotalValue = document.getElementById('cartTotalValue');
+const cartBadge = document.getElementById('cartBadge');
+const closeCart = document.getElementById('closeCart');
+const checkoutBtn = document.getElementById('checkoutBtn');
+
+// Cart kholne ka function
+function openCart() {
+    if(cartSidebar) cartSidebar.classList.add('open');
+    if(cartOverlay) cartOverlay.style.display = 'block';
+}
+
+// Cart band karne ka function
+function closeCartSidebar() {
+    if(cartSidebar) cartSidebar.classList.remove('open');
+    if(cartOverlay) cartOverlay.style.display = 'none';
+}
+
+if(closeCart) closeCart.addEventListener('click', closeCartSidebar);
+if(cartOverlay) cartOverlay.addEventListener('click', closeCartSidebar);
+
+// Item ko cart mein add karna
+function addToCart(itemName, itemPrice) {
+    cartItems.push({ name: itemName, price: parseInt(itemPrice) });
+    updateCartUI();
+    openCart(); // Item add hote hi cart side se nikal kar aayega
+}
+
+// Cart ke andar ka design aur total (₹) update karna
+function updateCartUI() {
+    if(cartBadge) cartBadge.innerText = cartItems.length; // Upar nav bar mein number update
+
+    if(cartItems.length === 0) {
+        cartItemsContainer.innerHTML = '<p style="padding: 20px; text-align: center; color: #777;">Your cart is empty.</p>';
+        cartTotalValue.innerText = '₹0';
+        return;
+    }
+
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+
+    cartItems.forEach((item, index) => {
+        total += item.price;
+        cartItemsContainer.innerHTML += `
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 10px; border-bottom: 1px solid #eee;">
+                <div>
+                    <h4 style="margin: 0; font-size: 16px; color: #333;">${item.name}</h4>
+                    <p style="margin: 5px 0 0; color: #e63946; font-weight: bold;">₹${item.price}</p>
+                </div>
+                <button onclick="removeItem(${index})" style="background: none; border: none; color: red; cursor: pointer; font-size: 24px; font-weight: bold;">&times;</button>
+            </div>
+        `;
+    });
+    cartTotalValue.innerText = '₹' + total;
+}
+
+// Item ko cart se delete karna
+function removeItem(index) {
+    cartItems.splice(index, 1);
+    updateCartUI(); 
+}
+
+// Checkout button dabane par Payment modal (Online/COD) kholna
+if(checkoutBtn) {
+    checkoutBtn.addEventListener('click', function() {
+        if(cartItems.length === 0) {
+            alert("Please add some items to your cart first!");
+            return;
+        }
+        closeCartSidebar();
+        const paymentModal = document.getElementById("paymentModal");
+        if(paymentModal) paymentModal.style.display = "flex";
+    });
+}
